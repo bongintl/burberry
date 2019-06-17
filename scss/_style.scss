@@ -1,0 +1,160 @@
+@import '../node_modules/reset-css/_reset.scss';
+
+@font-face {
+    src: url(./fonts/NHaasGroteskDSStd-55Rg.otf);
+    font-family: 'Neue Haas Grotesk';
+}
+
+@mixin portrait { @media ( orientation: portrait ) { @content; } }
+
+* {
+    position: relative;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 5vw;
+    @include portrait {
+        font-size: 8vw;
+    }
+}
+
+body {
+    background: white;
+    font-family: 'Neue Haas Grotesk';
+    height: 100vh;
+    color: white;
+    -webkit-text-stroke: 1px black;
+}
+
+canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    .route_home & {
+        cursor: pointer;
+    }
+    .route_single & {
+        cursor: none;
+    }
+}
+
+.title {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 33%;
+    height: 100%;
+    text-align: center;
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 1s;
+    pointer-events: none;
+    @include portrait {
+        width: 100%;
+        height: 25%;
+    }
+    .route_home & {
+        opacity: 1;
+    }
+    h1 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100vh;
+        transform: translate(-50%, -50%) rotate( -90deg );
+        &.portrait {
+            width: 100%;
+            display: none;
+        }
+        @include portrait {
+            display: none;
+            top: .5em;
+            left: 0;
+            transform: none;
+            &.portrait {
+                display: block;
+            }
+        }
+    }
+}
+
+.list {
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 33%;
+    height: 100%;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s;
+    @include portrait {
+        top: auto;
+        bottom: 0;
+        height: 25%;
+        width: 100%;
+    }
+    pointer-events: none;
+    .route_home & {
+        opacity: 1;
+        pointer-events: visible;
+    }
+    ol {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+        margin: 0;
+        list-style: none;
+        padding: 0 1em;
+        @include portrait {
+            top: auto;
+            left: 0;
+            bottom: .5em;
+            transform: none;
+        }
+    }
+    li {
+        cursor: pointer;
+        &:first-child {
+            display: block;
+        }
+        display: inline;
+    }
+    @mixin active ( $n, $color ) {
+        & ol:not(:hover) li:nth-child( 6n + #{$n} ).active {
+            color: $color;
+        }
+        li:nth-child( 6n + #{$n} ):hover {
+            color: $color;
+        }
+    }
+    @include active( 0, blue );
+    @include active( 1, purple );
+    @include active( 2, red );
+    @include active( 3, orange );
+    @include active( 4, yellow );
+    @include active( 5, green );
+}
+
+// h1 {
+//     pointer-events: none;
+//     position: absolute;
+//     top: 0;
+//     left: 50%;
+//     width: 100%;
+//     text-align: center;
+//     transform: translate( -50%, 0);
+//     color: white;
+//     -webkit-text-stroke: 1px black;
+//     z-index: 10;
+//     opacity: 0;
+//     transition: opacity 1s;
+//     .route_home & {
+//         opacity: 1;
+//     }
+// }
